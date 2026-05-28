@@ -63,7 +63,7 @@ export interface EmailConfig {
   port: number
   user: string
   password: string
-  from: string
+  from?: string
 }
 
 export interface TenantConfig {

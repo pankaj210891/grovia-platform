@@ -37,19 +37,22 @@ export const serverEnvSchema = z.object({
   SMTP_PORT: z.coerce.number().int().positive().default(587),
   SMTP_USER: z.string().optional(),
   SMTP_PASS: z.string().optional(),
-  EMAIL_FROM: z.string().email().default('noreply@grovia.com'),
+  EMAIL_FROM: z.string().email().optional(),
 
   // Tenant
   DEFAULT_TENANT_ID: z.string().default('default'),
 
   // Branding
   BRAND_NAME: z.string().default('Grovia'),
-  BRAND_LOGO_URL: z.string().optional(),
-  BRAND_FAVICON_URL: z.string().optional(),
+  BRAND_LOGO_URL: z.string().url().optional(),
+  BRAND_FAVICON_URL: z.string().url().optional(),
   BRAND_PRIMARY_COLOR: z.string().default('#2563EB'),
   BRAND_ACCENT_COLOR: z.string().default('#7C3AED'),
   BRAND_SUPPORT_EMAIL: z.string().email().optional(),
   BRAND_SUPPORT_PHONE: z.string().optional(),
+  BRAND_TWITTER_URL: z.string().url().optional(),
+  BRAND_INSTAGRAM_URL: z.string().url().optional(),
+  BRAND_FACEBOOK_URL: z.string().url().optional(),
 
   // Locale
   DEFAULT_LOCALE: z.string().default('en-US'),
