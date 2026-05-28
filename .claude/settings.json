@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm install *)",
+      "Bash(npx tsc *)",
+      "Bash(node_modules/.bin/tsc --noEmit)",
+      "Bash(pnpm --version)",
+      "Bash(gh auth *)",
+      "Bash(gh --version)",
+      "Bash(git config *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git checkout *)",
+      "Bash(pnpm lint *)",
+      "Bash(pnpm check-types *)",
+      "Bash(pnpm build *)",
+      "Bash(node -e ' *)",
+      "Bash(mongosh --eval \"db.runCommand\\({ ping: 1 }\\)\" --quiet mongodb://localhost:27017/grovia)",
+      "Bash(mongo --eval \"db.runCommand\\({ ping: 1 }\\)\" mongodb://localhost:27017/grovia)",
+      "Bash(git merge --no-ff feature/monorepo-scaffold -m ' *)",
+      "Bash(git remote *)",
+      "Bash(git push *)"
+    ]
+  }
+}
