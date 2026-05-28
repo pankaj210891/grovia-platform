@@ -1,33 +1,31 @@
 import type { FeatureFlags } from './types'
+import type { ServerEnv } from './env'
+import { validateServerEnv } from './env'
 
-function readBoolFlag(key: string, defaultValue: boolean): boolean {
-  const v = process.env[key]
-  if (v === undefined || v === '') return defaultValue
-  return v === 'true' || v === '1'
-}
-
-export function getDefaultFeatureFlags(): FeatureFlags {
+export function getDefaultFeatureFlags(env?: ServerEnv): FeatureFlags {
+  const e = env ?? validateServerEnv()
   return {
-    multiVendor: readBoolFlag('FEATURE_MULTI_VENDOR', false),
-    guestCheckout: readBoolFlag('FEATURE_GUEST_CHECKOUT', true),
-    wishlist: readBoolFlag('FEATURE_WISHLIST', true),
-    reviews: readBoolFlag('FEATURE_REVIEWS', true),
-    loyaltyPoints: readBoolFlag('FEATURE_LOYALTY_POINTS', false),
-    stripeCheckout: readBoolFlag('FEATURE_STRIPE_CHECKOUT', false),
-    emailNotifications: readBoolFlag('FEATURE_EMAIL_NOTIFICATIONS', false),
-    smsNotifications: readBoolFlag('FEATURE_SMS_NOTIFICATIONS', false),
-    darkMode: readBoolFlag('FEATURE_DARK_MODE', true),
-    internationalShipping: readBoolFlag('FEATURE_INTERNATIONAL_SHIPPING', false),
+    multiVendor: e.FEATURE_MULTI_VENDOR,
+    guestCheckout: e.FEATURE_GUEST_CHECKOUT,
+    wishlist: e.FEATURE_WISHLIST,
+    reviews: e.FEATURE_REVIEWS,
+    loyaltyPoints: e.FEATURE_LOYALTY_POINTS,
+    stripeCheckout: e.FEATURE_STRIPE_CHECKOUT,
+    emailNotifications: e.FEATURE_EMAIL_NOTIFICATIONS,
+    smsNotifications: e.FEATURE_SMS_NOTIFICATIONS,
+    darkMode: e.FEATURE_DARK_MODE,
+    internationalShipping: e.FEATURE_INTERNATIONAL_SHIPPING,
   }
 }
 
 export function isFeatureEnabled(
   flag: keyof FeatureFlags,
-  overrides?: Partial<FeatureFlags>
+  overrides?: Partial<FeatureFlags>,
+  env?: ServerEnv
 ): boolean {
   if (overrides) {
     const val = overrides[flag]
     if (val !== undefined) return val
   }
-  return getDefaultFeatureFlags()[flag]
+  return getDefaultFeatureFlags(env)[flag]
 }

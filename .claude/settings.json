@@ -19,7 +19,9 @@
       "Bash(mongo --eval \"db.runCommand\\({ ping: 1 }\\)\" mongodb://localhost:27017/grovia)",
       "Bash(git merge --no-ff feature/monorepo-scaffold -m ' *)",
       "Bash(git remote *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(npm run *)",
+      "Bash(git merge --no-ff feature/config-package-enhancements -m ' *)"
     ]
   }
 }

@@ -1,7 +1,7 @@
 import { getDefaultBranding } from './branding'
 import { getDefaultFeatureFlags } from './feature-flags'
 import { getDefaultLocale } from './locale'
-import { validateServerEnv } from './env'
+import { validateServerEnv, validatePublicEnv } from './env'
 import type { AppConfig, TenantConfig } from './types'
 
 let _config: AppConfig | undefined
@@ -10,6 +10,7 @@ export function getConfig(): AppConfig {
   if (_config) return _config
 
   const env = validateServerEnv()
+  const publicEnv = validatePublicEnv()
 
   const stripe =
     env.STRIPE_SECRET_KEY && env.STRIPE_WEBHOOK_SECRET
@@ -29,7 +30,7 @@ export function getConfig(): AppConfig {
   _config = {
     env: env.NODE_ENV,
     api: {
-      url: process.env['NEXT_PUBLIC_API_URL'] ?? 'http://localhost:3001',
+      url: publicEnv.NEXT_PUBLIC_API_URL,
       port: env.PORT,
     },
     database: {
@@ -45,9 +46,9 @@ export function getConfig(): AppConfig {
     stripe,
     email,
     defaultTenantId: env.DEFAULT_TENANT_ID,
-    branding: getDefaultBranding(),
-    locale: getDefaultLocale(),
-    features: getDefaultFeatureFlags(),
+    branding: getDefaultBranding(env),
+    locale: getDefaultLocale(env),
+    features: getDefaultFeatureFlags(env),
   }
 
   return _config
